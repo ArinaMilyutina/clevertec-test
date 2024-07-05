@@ -1,7 +1,10 @@
 package main.java.ru.clevertec.check;
 
-public class CheckRunner {
-    public static void main(String[] args) {
+import main.java.ru.clevertec.check.console.ConsoleApplication;
 
+public class CheckRunner {
+    private  static final ConsoleApplication application=new ConsoleApplication();
+    public static void main(String[] args) {
+      application.run();
     }
 }
