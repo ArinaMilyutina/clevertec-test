@@ -17,6 +17,12 @@ public class DiscountCard {
         return discountAmount;
     }
 
+    public DiscountCard(long id, int number, int discountAmount) {
+        this.id = id;
+        this.number = number;
+        this.discountAmount = discountAmount;
+    }
+
     @Override
     public String toString() {
         return "DiscountCard{" +

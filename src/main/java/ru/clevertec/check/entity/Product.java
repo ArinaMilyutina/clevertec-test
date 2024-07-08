@@ -22,6 +22,13 @@ public class Product {
         return wholesaleProduct;
     }
 
+    public Product(long id, double price, int quantityInStock, WholesaleProduct wholesaleProduct) {
+        this.id = id;
+        this.price = price;
+        this.quantityInStock = quantityInStock;
+        this.wholesaleProduct = wholesaleProduct;
+    }
+
     @Override
     public String toString() {
         return "Product{" +

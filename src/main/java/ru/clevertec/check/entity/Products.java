@@ -21,6 +21,11 @@ public class Products {
         this.count = count;
     }
 
-    public Products() {
+    @Override
+    public String toString() {
+        return "Products{" +
+                "product=" + product +
+                ", count=" + count +
+                '}';
     }
 }
