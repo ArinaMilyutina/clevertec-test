@@ -1,5 +1,6 @@
 package main.java.ru.clevertec.check.storage;
 
+import main.java.ru.clevertec.check.console.util.ConsoleWriter;
 import main.java.ru.clevertec.check.entity.Product;
 import main.java.ru.clevertec.check.entity.WholesaleProduct;
 
@@ -13,6 +14,7 @@ public class FileStorage {
     private static final String WHOLESALE = "+";
     private static final String POINT = ".";
     private static final String COMMA = ",";
+    private static final ConsoleWriter writer=new ConsoleWriter();
 
 
     public void createFile() {
@@ -20,12 +22,12 @@ public class FileStorage {
 
         try {
             if (file.createNewFile()) {
-                System.out.println("Файл " + FILENAME + " был успешно создан.");
+                writer.write("Файл " + FILENAME + " был успешно создан.");
             } else {
-                System.out.println("Файл " + FILENAME + " уже существует.");
+                writer.write("Файл " + FILENAME + " уже существует.");
             }
         } catch (IOException e) {
-            System.err.println("Ошибка при создании файла " + FILENAME);
+            writer.write("Ошибка при создании файла " + FILENAME);
             e.printStackTrace();
         }
     }
