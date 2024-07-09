@@ -15,6 +15,17 @@ public class Check {
     private double totalDiscount;
     private double totalPriceWithDiscount;
 
+    public Check(LocalDate date, LocalTime time, List<Products> productList, double totalPrice) {
+        this.date = date;
+        this.time = time;
+        this.productList = productList;
+        this.totalPrice = totalPrice;
+    }
+
+    public Check() {
+
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -47,25 +58,7 @@ public class Check {
         return totalPriceWithDiscount;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public void setTotalDiscount(double totalDiscount) {
-        this.totalDiscount = totalDiscount;
-    }
-
-    public void setTotalPriceWithDiscount(double totalPriceWithDiscount) {
-        this.totalPriceWithDiscount = totalPriceWithDiscount;
-    }
 
     @Override
     public String toString() {

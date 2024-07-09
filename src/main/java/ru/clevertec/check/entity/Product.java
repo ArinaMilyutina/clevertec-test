@@ -5,6 +5,12 @@ public class Product {
     private double price;
     private int quantityInStock;
     private WholesaleProduct wholesaleProduct;
+    private String description;
+
+
+    public String getDescription() {
+        return description;
+    }
 
     public long getId() {
         return id;
@@ -22,11 +28,16 @@ public class Product {
         return wholesaleProduct;
     }
 
-    public Product(long id, double price, int quantityInStock, WholesaleProduct wholesaleProduct) {
+    public Product(long id, double price, int quantityInStock, WholesaleProduct wholesaleProduct, String description) {
         this.id = id;
         this.price = price;
         this.quantityInStock = quantityInStock;
         this.wholesaleProduct = wholesaleProduct;
+        this.description = description;
+    }
+
+    public void decreaseQuantity(int quantity) {
+        quantityInStock -= quantity;
     }
 
     @Override
@@ -36,6 +47,7 @@ public class Product {
                 ", price=" + price +
                 ", quantityInStock=" + quantityInStock +
                 ", wholesaleProduct=" + wholesaleProduct +
+                ", description='" + description + '\'' +
                 '}';
     }
 }
