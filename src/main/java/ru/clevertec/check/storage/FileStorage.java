@@ -1,7 +1,8 @@
 package main.java.ru.clevertec.check.storage;
 
-import main.java.ru.clevertec.check.console.util.ConsoleWriter;
+import main.java.ru.clevertec.check.entity.Check;
 import main.java.ru.clevertec.check.entity.Product;
+import main.java.ru.clevertec.check.entity.Products;
 import main.java.ru.clevertec.check.entity.WholesaleProduct;
 
 import java.io.*;
@@ -11,32 +12,27 @@ import java.util.stream.Collectors;
 public class FileStorage {
     private static final String FILENAME = "src/result.csv";
     private static final String FILENAME_CARD = "./src/main/resources/discountCards.csv";
+    private static final String FILENAME_PRODUCT = "./src/main/resources/products.csv";
     private static final String SPLITTER_CSV = ";";
     private static final String WHOLESALE = "+";
     private static final String POINT = ".";
+    private static final String CURRENCY = "$";
     private static final String COMMA = ",";
+    private static final String ESCAPE_SEQUENCE = "\n";
     private static final int DEFAULT_DISCOUNT = 2;
-    private static final ConsoleWriter writer = new ConsoleWriter();
 
 
-    public void createFile() {
-        File file = new File(FILENAME);
-
+    private FileWriter createFileCsv() {
         try {
-            if (file.createNewFile()) {
-                writer.write("Файл " + FILENAME + " был успешно создан.");
-            } else {
-                writer.write("Файл " + FILENAME + " уже существует.");
-            }
+            return new FileWriter(FILENAME);
         } catch (IOException e) {
-            writer.write("Ошибка при создании файла " + FILENAME);
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
-    public List<Product> readProductsFromCSV(String filename) {
+    public List<Product> readProductsFromCSV() {
         List<Product> productsList;
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME_PRODUCT))) {
             productsList = br.lines()
                     .skip(1)
                     .map(line -> line.trim().split(SPLITTER_CSV))
@@ -72,6 +68,35 @@ public class FileStorage {
             e.printStackTrace();
         }
         return discount;
+    }
+
+    public void writeCheckToCsv(Check check) {
+        try (Writer writer = createFileCsv()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Date;Time" + ESCAPE_SEQUENCE);
+            sb.append(check.getDate()).append(SPLITTER_CSV)
+                    .append(check.getTime()).append(ESCAPE_SEQUENCE);
+            sb.append(ESCAPE_SEQUENCE + "QTY;DESCRIPTION;PRICE;DISCOUNT;TOTAL" + ESCAPE_SEQUENCE);
+            for (Products product : check.getProductList()) {
+                sb.append(product.getCount()).append(SPLITTER_CSV)
+                        .append(product.getProduct().getDescription()).append(SPLITTER_CSV)
+                        .append(product.getProduct().getPrice()).append(CURRENCY + SPLITTER_CSV)
+                        .append(product.getDiscount()).append(CURRENCY + SPLITTER_CSV)
+                        .append(product.getTotal()).append(CURRENCY + ESCAPE_SEQUENCE);
+            }
+            sb.append(ESCAPE_SEQUENCE + "DISCOUNT CARD;DISCOUNT PERCENTAGE" + ESCAPE_SEQUENCE);
+            sb.append(check.getDiscountCard().getNumber()).append(SPLITTER_CSV)
+                    .append(check.getDiscountCard().getDiscountAmount()).append(CURRENCY + ESCAPE_SEQUENCE);
+            sb.append(ESCAPE_SEQUENCE + "TOTAL PRICE;TOTAL DISCOUNT;TOTAL WITH DISCOUNT" + ESCAPE_SEQUENCE);
+            sb.append(check.getTotalPrice()).append(CURRENCY + SPLITTER_CSV)
+                    .append(check.getTotalDiscount()).append(CURRENCY + SPLITTER_CSV)
+                    .append(check.getTotalPriceWithDiscount()).append(CURRENCY + ESCAPE_SEQUENCE);
+            writer.write(sb.toString());
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
