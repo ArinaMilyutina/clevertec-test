@@ -10,20 +10,19 @@ public class Check {
     private LocalTime time;
     List<Products> productList;
     private double totalPrice;
-    private double discount;
     private DiscountCard discountCard;
     private double totalDiscount;
     private double totalPriceWithDiscount;
 
-    public Check(LocalDate date, LocalTime time, List<Products> productList, double totalPrice) {
+
+    public Check(LocalDate date, LocalTime time, List<Products> productList, double totalPrice, DiscountCard discountCard, double totalDiscount, double totalPriceWithDiscount) {
         this.date = date;
         this.time = time;
         this.productList = productList;
         this.totalPrice = totalPrice;
-    }
-
-    public Check() {
-
+        this.discountCard = discountCard;
+        this.totalDiscount = totalDiscount;
+        this.totalPriceWithDiscount = totalPriceWithDiscount;
     }
 
     public LocalDate getDate() {
@@ -42,9 +41,6 @@ public class Check {
         return totalPrice;
     }
 
-    public double getDiscount() {
-        return discount;
-    }
 
     public DiscountCard getDiscountCard() {
         return discountCard;
@@ -59,7 +55,6 @@ public class Check {
     }
 
 
-
     @Override
     public String toString() {
         return "Check{" +
@@ -67,7 +62,6 @@ public class Check {
                 ", time=" + time +
                 ", productList=" + productList +
                 ", totalPrice=" + totalPrice +
-                ", discount=" + discount +
                 ", discountCard=" + discountCard +
                 ", totalDiscount=" + totalDiscount +
                 ", totalPriceWithDiscount=" + totalPriceWithDiscount +
