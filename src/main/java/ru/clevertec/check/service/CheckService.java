@@ -2,9 +2,11 @@ package main.java.ru.clevertec.check.service;
 
 import main.java.ru.clevertec.check.console.util.ConsoleWriter;
 import main.java.ru.clevertec.check.entity.Check;
-import main.java.ru.clevertec.check.entity.DiscountCard;
+import main.java.ru.clevertec.check.entity.user.DiscountCard;
 import main.java.ru.clevertec.check.entity.Product;
 import main.java.ru.clevertec.check.entity.Products;
+import main.java.ru.clevertec.check.exception.BadRequestException;
+import main.java.ru.clevertec.check.exception.NotEnoughMoneyException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,6 +18,9 @@ import java.util.Map;
 public class CheckService {
     private static final ConsoleWriter writer = new ConsoleWriter();
     private static final String SPACING = " ";
+    private static final String ERROR = "ERROR ";
+    private static final String BAD_REQUEST = "BAD REQUEST";
+    private static final String NOT_ENOUGH_MONEY = "NOT ENOUGH MONEY";
     private static final ProductService productService = new ProductService();
     private static final CalculatorCheckService calculatorService = new CalculatorCheckService();
     private static final DiscountCardService cardService = new DiscountCardService();
@@ -36,11 +41,14 @@ public class CheckService {
         writer.write("Total With Discount: " + check.getTotalPriceWithDiscount());
     }
 
-    public Check createCheck(List<Product> productsList, String input, int discount, String number) {
+    public Check createCheck(List<Product> productsList, String input, int discount, String number, double balance) throws BadRequestException, NotEnoughMoneyException {
         Map<Product, Integer> chosenProductsMap = new HashMap<>();
         double totalPrice = calculatorService.calculateTotalPrice(productsList, input);
 
         String[] inputArr = input.split(SPACING);
+        if (inputArr.length == 0 || productsList.isEmpty()) {
+            throw new BadRequestException(ERROR, BAD_REQUEST);
+        }
         for (String item : inputArr) {
             productService.processInputItem(productsList, item, chosenProductsMap, totalPrice);
         }
@@ -48,8 +56,14 @@ public class CheckService {
         productService.createChosenProductsList(chosenProductsMap, chosenProducts, discount);
         double totalDiscount = calculatorService.calculateTotalDiscount(chosenProducts);
         double totalWithDiscount = calculatorService.calculateTotalWithDiscount(totalPrice, totalDiscount);
-        DiscountCard discountCard = new DiscountCard(number, cardService.discountAmount(number));
-        return new Check(LocalDate.now(), LocalTime.now(), chosenProducts, totalPrice, discountCard, totalDiscount, totalWithDiscount);
+        double accountBalance = balance - totalWithDiscount;
+        if (accountBalance >= 0) {
+            DiscountCard discountCard = new DiscountCard(number, cardService.discountAmount(number));
+            return new Check(LocalDate.now(), LocalTime.now(), chosenProducts, totalPrice, discountCard, totalDiscount, totalWithDiscount);
+        } else {
+            throw new NotEnoughMoneyException(ERROR, NOT_ENOUGH_MONEY);
+        }
+
     }
 
 }
