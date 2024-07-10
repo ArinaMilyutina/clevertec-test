@@ -2,14 +2,19 @@ package main.java.ru.clevertec.check.entity;
 
 public class DiscountCard {
     private long id;
-    private int number;
+    private String number;
     private int discountAmount;
 
     public long getId() {
         return id;
     }
 
-    public int getNumber() {
+    public DiscountCard(String number, int discountAmount) {
+        this.number = number;
+        this.discountAmount = discountAmount;
+    }
+
+    public String getNumber() {
         return number;
     }
 
@@ -17,11 +22,6 @@ public class DiscountCard {
         return discountAmount;
     }
 
-    public DiscountCard(long id, int number, int discountAmount) {
-        this.id = id;
-        this.number = number;
-        this.discountAmount = discountAmount;
-    }
 
     @Override
     public String toString() {
