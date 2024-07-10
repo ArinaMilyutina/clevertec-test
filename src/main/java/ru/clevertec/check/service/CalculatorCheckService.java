@@ -50,4 +50,5 @@ public class CalculatorCheckService implements Calculator {
         return NumberUtils.roundNumber(total * WHOLESALE_DISCOUNT / 100);
     }
 
+
 }
