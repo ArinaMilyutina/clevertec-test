@@ -1,4 +1,4 @@
-package main.java.ru.clevertec.check.entity;
+package main.java.ru.clevertec.check.entity.user;
 
 public class DiscountCard {
     private long id;
