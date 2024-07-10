@@ -7,7 +7,6 @@ public class Product {
     private WholesaleProduct wholesaleProduct;
     private String description;
 
-
     public String getDescription() {
         return description;
     }
@@ -35,6 +34,7 @@ public class Product {
         this.wholesaleProduct = wholesaleProduct;
         this.description = description;
     }
+
 
     public void decreaseQuantity(int quantity) {
         quantityInStock -= quantity;
