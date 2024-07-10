@@ -2,11 +2,12 @@ package main.java.ru.clevertec.check.service;
 
 import main.java.ru.clevertec.check.console.util.ConsoleWriter;
 import main.java.ru.clevertec.check.entity.Check;
-import main.java.ru.clevertec.check.entity.user.DiscountCard;
 import main.java.ru.clevertec.check.entity.Product;
 import main.java.ru.clevertec.check.entity.Products;
+import main.java.ru.clevertec.check.entity.user.DiscountCard;
 import main.java.ru.clevertec.check.exception.BadRequestException;
 import main.java.ru.clevertec.check.exception.NotEnoughMoneyException;
+import main.java.ru.clevertec.check.util.DateTimeFormatterUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -59,7 +60,7 @@ public class CheckService {
         double accountBalance = balance - totalWithDiscount;
         if (accountBalance >= 0) {
             DiscountCard discountCard = new DiscountCard(number, cardService.discountAmount(number));
-            return new Check(LocalDate.now(), LocalTime.now(), chosenProducts, totalPrice, discountCard, totalDiscount, totalWithDiscount);
+            return new Check(DateTimeFormatterUtils.DateFormatter(LocalDate.now()), DateTimeFormatterUtils.TimeFormatter(LocalTime.now()), chosenProducts, totalPrice, discountCard, totalDiscount, totalWithDiscount);
         } else {
             throw new NotEnoughMoneyException(ERROR, NOT_ENOUGH_MONEY);
         }
