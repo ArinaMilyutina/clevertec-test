@@ -25,6 +25,15 @@ public class Check {
         this.totalPriceWithDiscount = totalPriceWithDiscount;
     }
 
+    public Check(LocalDate date, LocalTime time, List<Products> productList, double totalPrice, double totalDiscount, double totalPriceWithDiscount) {
+        this.date = date;
+        this.time = time;
+        this.productList = productList;
+        this.totalPrice = totalPrice;
+        this.totalDiscount = totalDiscount;
+        this.totalPriceWithDiscount = totalPriceWithDiscount;
+    }
+
     public LocalDate getDate() {
         return date;
     }
