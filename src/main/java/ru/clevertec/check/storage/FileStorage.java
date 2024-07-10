@@ -20,6 +20,7 @@ public class FileStorage {
     private static final String COMMA = ",";
     private static final String ESCAPE_SEQUENCE = "\n";
     private static final int DEFAULT_DISCOUNT = 2;
+    private static final StringBuilder sb = new StringBuilder();
 
 
     private FileWriter createFileCsv() {
@@ -53,7 +54,7 @@ public class FileStorage {
     }
 
     public int readDiscountCardsFromCSVByNumber(String cardNumber) {
-        String line = "";
+        String line;
         int discount = DEFAULT_DISCOUNT;
 
         try (BufferedReader br = new BufferedReader(new FileReader(FILENAME_CARD))) {
@@ -72,7 +73,6 @@ public class FileStorage {
 
     public void writeCheckToCsv(Check check) {
         try (Writer writer = createFileCsv()) {
-            StringBuilder sb = new StringBuilder();
             sb.append("Date;Time" + ESCAPE_SEQUENCE);
             sb.append(check.getDate()).append(SPLITTER_CSV)
                     .append(check.getTime()).append(ESCAPE_SEQUENCE);
@@ -94,6 +94,15 @@ public class FileStorage {
             writer.write(sb.toString());
 
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void writeExceptionToCsv(String message, String description) {
+        try (Writer writer = createFileCsv()) {
+            sb.append(message).append(ESCAPE_SEQUENCE).append(description);
+            writer.write(sb.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
