@@ -1,13 +1,13 @@
 package main.java.ru.clevertec.check.entity;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import main.java.ru.clevertec.check.entity.user.DiscountCard;
+
 import java.util.List;
 
 
 public class Check {
-    private LocalDate date;
-    private LocalTime time;
+    private String date;
+    private String time;
     List<Products> productList;
     private double totalPrice;
     private DiscountCard discountCard;
@@ -15,7 +15,7 @@ public class Check {
     private double totalPriceWithDiscount;
 
 
-    public Check(LocalDate date, LocalTime time, List<Products> productList, double totalPrice, DiscountCard discountCard, double totalDiscount, double totalPriceWithDiscount) {
+    public Check(String date, String time, List<Products> productList, double totalPrice, DiscountCard discountCard, double totalDiscount, double totalPriceWithDiscount) {
         this.date = date;
         this.time = time;
         this.productList = productList;
@@ -25,7 +25,7 @@ public class Check {
         this.totalPriceWithDiscount = totalPriceWithDiscount;
     }
 
-    public Check(LocalDate date, LocalTime time, List<Products> productList, double totalPrice, double totalDiscount, double totalPriceWithDiscount) {
+    public Check(String date, String time, List<Products> productList, double totalPrice, double totalDiscount, double totalPriceWithDiscount) {
         this.date = date;
         this.time = time;
         this.productList = productList;
@@ -34,11 +34,11 @@ public class Check {
         this.totalPriceWithDiscount = totalPriceWithDiscount;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
