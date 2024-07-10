@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CalculatorService implements Calculator {
+public class CalculatorCheckService implements Calculator {
     private static final String SPACING = " ";
     private static final int WHOLESALE_DISCOUNT = 10;
     private static final ProductService productService = new ProductService();
