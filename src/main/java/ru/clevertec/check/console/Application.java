@@ -1,5 +1,5 @@
 package main.java.ru.clevertec.check.console;
 
 public interface Application {
-    void run();
+    void run(String []args);
 }
