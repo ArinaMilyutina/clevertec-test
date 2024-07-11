@@ -17,7 +17,6 @@ public class NotEnoughMoneyException extends Exception{
     public void setMessage(String message) {
         this.message = message;
     }
-
     public String getDescription() {
         return description;
     }
