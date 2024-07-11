@@ -3,6 +3,7 @@ package main.java.ru.clevertec.check.console;
 import main.java.ru.clevertec.check.console.util.ConsoleWriter;
 import main.java.ru.clevertec.check.entity.Check;
 import main.java.ru.clevertec.check.entity.Product;
+import main.java.ru.clevertec.check.entity.user.DebitCard;
 import main.java.ru.clevertec.check.exception.BadRequestException;
 import main.java.ru.clevertec.check.exception.NotEnoughMoneyException;
 import main.java.ru.clevertec.check.service.CheckService;
@@ -37,11 +38,15 @@ public class ConsoleApplication implements Application {
                 balanceDebitCard = arg.substring("balanceDebitCard=".length());
             }
         }
-
+//String idQuantity="1-2 3-2 1-3";
+//String discountCard="1111";
+//double balanceDebitCard=100;
+        DebitCard debitCard = new DebitCard();
+        debitCard.setBalance(Double.parseDouble(balanceDebitCard));
         List<Product> productsList = fileStorage.readProductsFromCSV();
 
         try {
-            Check check = checkService.createCheck(productsList, idQuantity, cardService.discountAmount(discountCard), discountCard, Double.parseDouble(balanceDebitCard));
+            Check check = checkService.createCheck(productsList, idQuantity, cardService.discountAmount(discountCard), discountCard, debitCard.getBalance());
             checkService.printCheck(check);
             fileStorage.writeCheckToCsv(check);
         } catch (BadRequestException e) {
