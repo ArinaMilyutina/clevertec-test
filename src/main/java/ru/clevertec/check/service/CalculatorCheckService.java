@@ -10,6 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 public class CalculatorCheckService implements Calculator {
+    private static CalculatorCheckService instance;
+
+    private CalculatorCheckService() {
+    }
+
+    public static CalculatorCheckService getInstance() {
+        if (instance == null) {
+            instance = new CalculatorCheckService();
+        }
+        return instance;
+    }
+
     private static final String SPACING = " ";
     private static final int WHOLESALE_DISCOUNT = 10;
     private static final ProductService productService = new ProductService();

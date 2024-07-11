@@ -23,7 +23,7 @@ public class CheckService {
     private static final String BAD_REQUEST = "BAD REQUEST";
     private static final String NOT_ENOUGH_MONEY = "NOT ENOUGH MONEY";
     private static final ProductService productService = new ProductService();
-    private static final CalculatorCheckService calculatorService = new CalculatorCheckService();
+    private static final CalculatorCheckService calculatorService = CalculatorCheckService.getInstance();
     private static final DiscountCardService cardService = new DiscountCardService();
 
     public void printCheck(Check check) {

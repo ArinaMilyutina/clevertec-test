@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ProductService {
     private static final String N_DASH = "-";
-    private static final CalculatorCheckService calculatorService = new CalculatorCheckService();
+    private static final CalculatorCheckService calculatorService = CalculatorCheckService.getInstance();
 
     public Product getProductById(List<Product> productsList, int id) {
         for (Product product : productsList) {
