@@ -5,14 +5,43 @@ public class DiscountCard {
     private String number;
     private int discountAmount;
 
+    public DiscountCard() {
+
+    }
+
+    public static DiscountCardBuilder builder() {
+        return new DiscountCard().new DiscountCardBuilder();
+    }
+
+    public class DiscountCardBuilder {
+        public DiscountCardBuilder() {
+        }
+
+        public DiscountCardBuilder setId(long id) {
+            DiscountCard.this.id = id;
+            return this;
+        }
+
+        public DiscountCardBuilder setDiscountAmount(int discountAmount) {
+            DiscountCard.this.discountAmount = discountAmount;
+            return this;
+        }
+
+        public DiscountCardBuilder setNumber(String number) {
+            DiscountCard.this.number = number;
+            return this;
+        }
+
+        public DiscountCard build() {
+            return DiscountCard.this;
+        }
+
+    }
+
     public long getId() {
         return id;
     }
 
-    public DiscountCard(String number, int discountAmount) {
-        this.number = number;
-        this.discountAmount = discountAmount;
-    }
 
     public String getNumber() {
         return number;

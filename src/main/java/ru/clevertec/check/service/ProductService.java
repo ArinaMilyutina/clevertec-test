@@ -56,9 +56,9 @@ public class ProductService {
 
             Products products;
             if (quantity >= 5 && product.getWholesaleProduct() == WholesaleProduct.WHOLESALE) {
-                products = new Products(product, quantity, total, discountWholesaleProduct);
+                products = Products.builder().setProduct(product).setCount(quantity).setTotal(total).setDiscount(discountWholesaleProduct).build();
             } else {
-                products = new Products(product, quantity, total, discount);
+                products = Products.builder().setProduct(product).setCount(quantity).setTotal(total).setDiscount(discount).build();
             }
 
             chosenProducts.add(products);

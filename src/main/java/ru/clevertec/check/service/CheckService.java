@@ -59,8 +59,8 @@ public class CheckService {
         double totalWithDiscount = calculatorService.calculateTotalWithDiscount(totalPrice, totalDiscount);
         double accountBalance = balance - totalWithDiscount;
         if (accountBalance >= 0) {
-            DiscountCard discountCard = new DiscountCard(number, cardService.discountAmount(number));
-            return new Check(DateTimeFormatterUtils.DateFormatter(LocalDate.now()), DateTimeFormatterUtils.TimeFormatter(LocalTime.now()), chosenProducts, totalPrice, discountCard, totalDiscount, totalWithDiscount);
+            DiscountCard discountCard = DiscountCard.builder().setNumber(number).setDiscountAmount(cardService.discountAmount(number)).build();
+            return Check.builder().setDate(DateTimeFormatterUtils.DateFormatter(LocalDate.now())).setTime(DateTimeFormatterUtils.TimeFormatter(LocalTime.now())).setListProducts(chosenProducts).setTotalPrice(totalPrice).setDiscountCard(discountCard).setTotalDiscount(totalDiscount).setTotalWithDiscount(totalWithDiscount).build();
         } else {
             throw new NotEnoughMoneyException(ERROR, NOT_ENOUGH_MONEY);
         }

@@ -8,33 +8,56 @@ import java.util.List;
 public class Check {
     private String date;
     private String time;
-    List<Products> productList;
+    private List<Products> productList;
     private double totalPrice;
     private DiscountCard discountCard;
     private double totalDiscount;
     private double totalPriceWithDiscount;
 
-
-    public Check(String date, String time, List<Products> productList, double totalPrice, DiscountCard discountCard, double totalDiscount, double totalPriceWithDiscount) {
-        this.date = date;
-        this.time = time;
-        this.productList = productList;
-        this.totalPrice = totalPrice;
-        this.discountCard = discountCard;
-        this.totalDiscount = totalDiscount;
-        this.totalPriceWithDiscount = totalPriceWithDiscount;
+    public Check() {
+    }
+    public static Check.CheckBuilder builder() {
+        return new Check().new CheckBuilder();
     }
 
-    public Check(String date, String time, List<Products> productList, double totalPrice, double totalDiscount, double totalPriceWithDiscount) {
-        this.date = date;
-        this.time = time;
-        this.productList = productList;
-        this.totalPrice = totalPrice;
-        this.totalDiscount = totalDiscount;
-        this.totalPriceWithDiscount = totalPriceWithDiscount;
+    public class CheckBuilder {
+        public CheckBuilder() {
+        }
+        public Check.CheckBuilder setDate(String date) {
+            Check.this.date = date;
+            return this;
+        }
+        public Check.CheckBuilder setListProducts(List<Products> productList) {
+            Check.this.productList = productList;
+            return this;
+        }
+        public Check.CheckBuilder setTime(String time) {
+            Check.this.time = time;
+            return this;
+        }
+        public Check.CheckBuilder setTotalPrice(double totalPrice) {
+            Check.this.totalPrice = totalPrice;
+            return this;
+        }
+        public Check.CheckBuilder setDiscountCard(DiscountCard discountCard) {
+            Check.this.discountCard = discountCard;
+            return this;
+        }
+        public Check.CheckBuilder setTotalDiscount(double totalDiscount) {
+            Check.this.totalDiscount = totalDiscount;
+            return this;
+        }
+        public Check.CheckBuilder setTotalWithDiscount(double totalPriceWithDiscount) {
+            Check.this.totalPriceWithDiscount = totalPriceWithDiscount;
+            return this;
+        }
+        public Check build() {
+            return Check.this;
+        }
     }
 
-    public String getDate() {
+
+        public String getDate() {
         return date;
     }
 

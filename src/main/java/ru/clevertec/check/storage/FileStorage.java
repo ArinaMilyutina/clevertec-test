@@ -44,7 +44,8 @@ public class FileStorage {
                         int quantityInStock = Integer.parseInt(data[3].trim());
                         WholesaleProduct wholesaleProduct = data[4].trim().equals(WHOLESALE) ? WholesaleProduct.WHOLESALE : WholesaleProduct.REGULAR;
                         String description = data.length > 5 ? data[1].trim() + SPLITTER_CSV + data[5].trim() : data[1].trim();
-                        return new Product(id, price, quantityInStock, wholesaleProduct, description);
+
+                        return Product.builder().setId(id).setPrice(price).setQuantityInStock(quantityInStock).setWholesaleProduct(wholesaleProduct).setDescription(description).build();
                     })
                     .collect(Collectors.toList());
         } catch (IOException e) {
@@ -77,7 +78,7 @@ public class FileStorage {
             sb.append(check.getDate()).append(SPLITTER_CSV)
                     .append(check.getTime()).append(ESCAPE_SEQUENCE);
             sb.append(ESCAPE_SEQUENCE + "QTY;DESCRIPTION;PRICE;DISCOUNT;TOTAL" + ESCAPE_SEQUENCE);
-            for (Products product : check.getProductList()) {
+            for (Products product: check.getProductList()) {
                 sb.append(product.getCount()).append(SPLITTER_CSV)
                         .append(product.getProduct().getDescription()).append(SPLITTER_CSV)
                         .append(product.getProduct().getPrice()).append(CURRENCY + SPLITTER_CSV)
